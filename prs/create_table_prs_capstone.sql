@@ -73,16 +73,20 @@ insert into vendor values
 
 -- add product
 insert into product values
-('1','1','ME280LL','ipad mini 2',296.99),
-('2','2','ME280LL','ipad mini 2',299.99),
-('3','3','105810', 'Hammermill Paper, Premium Multi-purpose paper poly wrap', 8.99, '1 ream / 500 sheets'),
-('4','4','122374', 'Hammermill Copy Plus copy Paper, 8 1/2" x 11", Case', 29.99, '1 case, 10 reams, 500 sheets per ream'),
-('5','4','784551','Logitech M325 Wireless Optical Mouse, Ambidextrous, Black', 14.99),
-('6','4','382955', 'Staples Mouse Pad. Black', 2.99),
-('7','4''2122178', 'AOC 24-Inch Class LED Monitor', 99.99),
-('8','4','2460649', 'Laptop HP Notebook 15-AY163NR', 529.99),
-('9','4','2256788', 'Laptop Dell i3552-3240BLK 15.6"', 239.99),
-('10','4','IM12M9520', 'Laptop Acer ACER Aspire One Cloudbook 14"', 224.99),
-('11','4','940600', 'Canon imageCLASS Copier (D530)', 99.99),
-('12','5','228148', 'Acer Aspire ATC-780A-UR12 Desktop Computer', 399.99, '/images/AcerAspireDesktop.jpg'),
-('13','5','279364', 'Lenovo IDeaCentre All-In-One Desktop', 349.99, '/images/LenovoIdeaCenter.jpg');
+(1,'1','ME280LL','ipad mini 2',296.99),
+(2,'2','ME280LL','ipad mini 2',299.99),
+(3,'3','105810', 'Hammermill Paper, Premium Multi-purpose paper poly wrap', 8.99, '1 ream / 500 sheets'),
+(4,'4','122374', 'Hammermill Copy Plus copy Paper, 8 1/2" x 11", Case', 29.99, '1 case, 10 reams, 500 sheets per ream'),
+(5,'4','784551','Logitech M325 Wireless Optical Mouse, Ambidextrous, Black', 14.99),
+(6,'4','382955', 'Staples Mouse Pad. Black', 2.99),
+(7,'4''2122178', 'AOC 24-Inch Class LED Monitor', 99.99),
+(8,'4','2460649', 'Laptop HP Notebook 15-AY163NR', 529.99),
+(9,'4','2256788', 'Laptop Dell i3552-3240BLK 15.6"', 239.99),
+(10,'4','IM12M9520', 'Laptop Acer ACER Aspire One Cloudbook 14"', 224.99),
+(11,'4','940600', 'Canon imageCLASS Copier (D530)', 99.99),
+(12,'5','228148', 'Acer Aspire ATC-780A-UR12 Desktop Computer', 399.99, '/images/AcerAspireDesktop.jpg'),
+(13,'5','279364', 'Lenovo IDeaCentre All-In-One Desktop', 349.99, '/images/LenovoIdeaCenter.jpg');
+
+DROP USER IF EXISTS prs_user@localhost;
+CREATE USER prs_user@localhost IDENTIFIED BY 'sesame';
+GRANT SELECT, INSERT, DELETE, UPDATE ON prs.* TO prs_user@localhost;
