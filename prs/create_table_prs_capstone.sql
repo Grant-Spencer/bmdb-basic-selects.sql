@@ -3,6 +3,8 @@ DROP DATABASE IF EXISTS prs;
 CREATE DATABASE prs;
 USE prs;
 
+-- create User table
+-- Drop table if exists user;
 create table User(
 ID				Int				primary key auto_increment,
 Username		Varchar(20)		Not null,
@@ -11,8 +13,8 @@ firstname		varchar(20)		Not null,
 lastname		varchar(20)		Not null,
 phonenumber		varchar(12)		Not null,
 email			varchar(75)		Not null,
-IsReviewer		tinyint			Not null,
-Isadmin			tinyint			Not null,
+IsReviewer		tinyint			default 0 Not null,
+Isadmin			tinyint			default 0 Not null,
 Constraint uname unique(username));
 
 Create table vendor(
@@ -34,34 +36,39 @@ Description		 		VARCHAR(100)		Not null,
 Justification	 		VARCHAR(255)		Not null,
 DateNeeded 				DATE				Not null,
 DeliveryMode 			VARCHAR(25)			Not null,
-Status 					VARCHAR(20)			Not null,
+Status 					VARCHAR(20)			Not null default 'New',
 Total 					DECIMAL(10,2)		Not null,
-SubmittedDate 			DATETIME			Not null,
-ReasonForRejection 		VARCHAR(100)
+SubmittedDate 			DATETIME			default current_timestamp Not null,
+ReasonForRejection 		VARCHAR(100),
+Foreign Key (UserID) references user (ID)
 );
 
 create table product(
-ID 				INT					Not null,
+ID 				INT					primary key auto_increment,
 VendorID 		INT					Not null,
 PartNumber 		VARCHAR(50)			Not null,
 Name 			VARCHAR(150)		Not null,
 Price 			DECIMAL(10,2)		Not null,
 Unit 			VARCHAR(255),
 PhotoPath 		VARCHAR(255),
+foreign key (vendorID) references vendor(ID),
 constraint vendor_part unique (vendorID, partnumber));
 
 create table lineitem(
-ID INT				Not null,
-RequestID INT		Not null,
-ProductID INT		Not null,
-Quantity INT		Not null,
-constraint req_pdt unique (requestID, productID));
+ID 			INT				primary key auto_increment,
+RequestID 	INT				Not null,
+ProductID 	INT				Not null,
+Quantity 	INT				Not null,
+foreign key (productID) references product(ID),
+foreign key (requestID) references request(ID),
+constraint req_pdt unique (requestID, productID)
+);
 
 -- Add Users
 
 insert into user values
-(1, 'SYSTEM', 'XXXXX', 'System', 'System', 513-513-5135, 'system@test.com', 0, 0),
-(2, 'Grant', 'sesame', 'Grant', 'Spencer', 513-646-2299, 'gwspence22@gmail.com', 0, 0);
+(1, 'SYSTEM', 'XXXXX', 'System', 'System', '513-513-5135', 'system@test.com', 0, 0),
+(2, 'Grant', 'sesame', 'Grant', 'Spencer', '513-646-2299', 'gwspence22@gmail.com', 0, 0);
 
 -- Add Vendor
 insert into vendor values
